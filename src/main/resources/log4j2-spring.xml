@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<Configuration>
+    <Appenders>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} - %msg%n" />
+        </Console>
+
+        <RollingFile name="gestion_riesgo_api" fileName="${sys:catalina.home}/logs_gestion_riesgo/GESTION_RIESGO_API.log"
+                     filePattern="${sys:catalina.home}/logs_gestion_riesgo/GESTION_RIESGO_API-%d{yyyy-MM-dd}.log.zip">
+            <PatternLayout>
+                <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
+            </PatternLayout>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"
+                                           modulate="true" />
+            </Policies>
+        </RollingFile>
+
+    </Appenders>
+    <Loggers>
+        <Logger name="GESTION_RIESGO_API" level="info"
+                additivity="false">
+            <AppenderRef ref="gestion_riesgo_api" />
+        </Logger>
+
+        <Root level="info">
+            <AppenderRef ref="STDOUT" />
+            <AppenderRef ref="gestion_riesgo_api" />
+        </Root>
+    </Loggers>
+</Configuration>
