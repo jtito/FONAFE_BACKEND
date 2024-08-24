@@ -36,7 +36,9 @@ import pe.gob.fonafe.sistemagestionriesgoapi.dao.IDetalleGraficoDao;
 @Repository
 public class DetalleGraficoDaoImpl implements IDetalleGraficoDao {
 
+
     private final JdbcTemplate jdbcTemplate;
+
 
     private static final Logger logger = LogManager.getLogger("GESTION_EVENTO_API");
 
