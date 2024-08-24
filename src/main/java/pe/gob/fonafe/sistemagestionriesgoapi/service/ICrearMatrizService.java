@@ -6,5 +6,5 @@ public interface ICrearMatrizService {
     DTOCrearMatriz crearMatriz(DTOCrearMatriz dtoCrearMatriz);
     DTOCrearMatriz obtenerMatriz();
     DTOCrearMatriz listarMatriz();
-    DTOCrearMatriz eliminarMatriz();
+    //DTOCrearMatriz eliminarMatriz();
 }

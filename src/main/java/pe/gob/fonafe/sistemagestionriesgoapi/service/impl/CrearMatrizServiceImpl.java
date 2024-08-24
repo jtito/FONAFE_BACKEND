@@ -22,6 +22,7 @@ public CrearMatrizServiceImpl(ICrearMatrizDao crearMatrizDao) {
 
     @Override
     public DTOCrearMatriz crearMatriz(DTOCrearMatriz dtoCrearMatriz) {
+        logger.info("crearMatriz");
         return crearMatrizDao.crearMatriz(dtoCrearMatriz);
     }
 

@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import pe.gob.fonafe.sistemagestionriesgoapi.models.CrearMatrizBean;
+import pe.gob.fonafe.sistemagestionriesgoapi.models.enums.*;
 
 import java.io.Serializable;
 
@@ -14,11 +15,11 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class DTOCrearMatriz implements Serializable {
 
-    private CrearMatrizBean.Area_Gerencia areaGerencia;
-    private CrearMatrizBean.Origen origen;
-    private CrearMatrizBean.Frecuencia frecuencia;
-    private CrearMatrizBean.Tipo tipo;
-    private CrearMatrizBean.SubTipo subTipo;
+    public Area_Gerencia areaGerencia;
+    public Origen origen;
+    public Frecuencia frecuencia;
+    public Tipo tipo;
+    public SubTipo subTipo;
 
     private String tipoMatriz;
     private String codigoRiesgo;

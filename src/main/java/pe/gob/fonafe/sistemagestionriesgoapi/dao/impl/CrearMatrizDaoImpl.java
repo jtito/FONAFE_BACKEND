@@ -33,20 +33,21 @@ public class CrearMatrizDaoImpl implements ICrearMatrizDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+
     @Override
     public DTOCrearMatriz obtenerCrearMatriz() {
         SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
-                .withCatalogName("PKG_CONFIGURACION")
-                .withProcedureName("SP_OBTENER_CREAR_MATRIZ")
-                .declareParameters(new SqlOutParameter("NUM_RESULT", OracleTypes.NUMBER))
-                .declareParameters(new SqlOutParameter("DE_ERROR", OracleTypes.VARCHAR));
+                .withCatalogName("PKG_CONFIGURACION") //establece el nombre del paquete de la base de datos que contiene el procedimiento almacenado que se va a llama
+                .withProcedureName("SP_OBTENER_CREAR_MATRIZ") //establece el nombre del procedimiento almacenado que se va a llamar
+                .declareParameters(new SqlOutParameter("NUM_RESULT", OracleTypes.NUMBER)) // este parámetro contendrá un valor numérico que el procedimiento almacenado ha producido
+                .declareParameters(new SqlOutParameter("DE_ERROR", OracleTypes.VARCHAR)); // este parámetro contendrá un valor de cadena que el procedimiento almacenado ha producido
 
-        Map<String, Object> out = call.execute();
-        String numeroResultado = out.get("DE_ERROR").toString();
+        Map<String, Object> out = call.execute(); // ejecuta el procedimiento y el resultado de la ejecución de este se devuelve como un MAP donde las claves son "NUM_RESULT" y "DE_ERROR" y sus valores puede ser 1, "Operacion exitosa"
+        String numeroResultado = out.get("NUM_RESULT").toString();
         String descripcionResultado = out.get("DE_ERROR").toString();
 
         DTOCrearMatriz dtoCrearMatriz = new DTOCrearMatriz();
-        dtoCrearMatriz.setCodigoRiesgo(numeroResultado);
+        dtoCrearMatriz.setCodigoRiesgo(numeroResultado); // esta linea de codigo lo que hace es setear el valor de la variable numeroResultado a la variable codigoRiesgo del objeto DTOCrearMatriz
         dtoCrearMatriz.setDescripcionRiesgo(descripcionResultado);
 
         return dtoCrearMatriz;
@@ -86,7 +87,7 @@ public class CrearMatrizDaoImpl implements ICrearMatrizDao {
 
         Map<String, Object> out = call.execute(in);
 
-        String numeroResultado = out.get("DE_ERROR").toString();
+        String numeroResultado = out.get("NUM_RESULT").toString();
         String descripcionResultado = out.get("DE_ERROR").toString();
 
         matriz.setCodigoRiesgo(numeroResultado);
@@ -100,7 +101,6 @@ public class CrearMatrizDaoImpl implements ICrearMatrizDao {
         SimpleJdbcCall call = new SimpleJdbcCall(jdbcTemplate)
                 .withCatalogName("PKG_CONFIGURACION")
                 .withProcedureName("SP_LISTAR_MATRICES")
-                .declareParameters(new SqlOutParameter("O_CURSOR", OracleTypes.CURSOR))
                 .declareParameters(new SqlOutParameter("NUM_RESULT", OracleTypes.NUMBER))
                 .declareParameters(new SqlOutParameter("DE_ERROR", OracleTypes.VARCHAR))
                 .returningResultSet("O_CURSOR", BeanPropertyRowMapper.newInstance(DTOCrearMatriz.class));
@@ -108,7 +108,7 @@ public class CrearMatrizDaoImpl implements ICrearMatrizDao {
         Map<String, Object> out = call.execute();
         List<DTOCrearMatriz> listaMatrices = (List<DTOCrearMatriz>) out.get("O_CURSOR");
 
-        String numeroResultado = (String) out.get("DE_ERROR");
+        String numeroResultado = (String) out.get("NUM_RESULT");
         String descripcionResultado = (String) out.get("DE_ERROR");
 
         for (DTOCrearMatriz matriz : listaMatrices) {
